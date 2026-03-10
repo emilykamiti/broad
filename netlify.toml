@@ -1,34 +1,13 @@
 [build]
-  command = "npm run build"
-  publish = "dist"
-[build]
-  command = "npm run build"
-  publish = "dist"
+command = "npm run build"
+publish = "dist"
 
 # For Vite's client-side routing
 [[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
+from = "/*"
+to = "/index.html"
+status = 200
 
-# Optional: Set Node version
+# Environment settings
 [build.environment]
-  NODE_VERSION = "18"
-
-# Optional: Cache dependencies for faster builds
-[build.processing]
-  skip_processing = false
-
-[build.processing.css]
-  bundle = true
-  minify = true
-
-[build.processing.html]
-  pretty_urls = true
-
-[build.processing.images]
-  compress = true
-
-[build.processing.js]
-  bundle = true
-  minify = true
+NODE_VERSION = "18"
