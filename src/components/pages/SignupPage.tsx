@@ -90,27 +90,20 @@ export default function SignupPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4">
-      <div className="max-w-md w-full">
-        <div className="text-center mb-8">
-          <Link to="/" className="flex items-center justify-center space-x-2 mb-4">
-            <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-lg">D</span>
-            </div>
-            <span className="text-2xl font-bold text-gray-900">Dunamis</span>
-          </Link>
-          <h2 className="text-3xl font-bold text-gray-900">Create your account</h2>
-          <p className="text-gray-600 mt-2">Join Dunamis and start shopping today</p>
-        </div>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100">
+      {/* Main Container */}
+      <div className="w-full max-w-md mx-auto px-4 sm:px-6">
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Sign Up</CardTitle>
+        {/* Signup Card */}
+        <Card className="shadow-xl border-0">
+          <CardHeader className="pb-2 pt-7">
+            <CardTitle className="text-2xl text-center font-semibold text-gray-800">Sign Up</CardTitle>
           </CardHeader>
-          <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div>
-                <Label htmlFor="name">Full Name</Label>
+          <CardContent className="p-7">
+            <form onSubmit={handleSubmit} className="space-y-5">
+              {/* Full Name Field */}
+              <div className="space-y-2">
+                <Label htmlFor="name" className="text-base font-medium text-gray-700">Full Name</Label>
                 <Input
                   id="name"
                   name="name"
@@ -118,12 +111,14 @@ export default function SignupPage() {
                   value={formData.name}
                   onChange={handleInputChange}
                   placeholder="Enter your full name"
+                  className="h-12 px-4 text-base border-gray-300 focus:border-blue-500 focus:ring-blue-500 w-full"
                   required
                 />
               </div>
 
-              <div>
-                <Label htmlFor="email">Email</Label>
+              {/* Email Field */}
+              <div className="space-y-2">
+                <Label htmlFor="email" className="text-base font-medium text-gray-700">Email</Label>
                 <Input
                   id="email"
                   name="email"
@@ -131,12 +126,14 @@ export default function SignupPage() {
                   value={formData.email}
                   onChange={handleInputChange}
                   placeholder="Enter your email"
+                  className="h-12 px-4 text-base border-gray-300 focus:border-blue-500 focus:ring-blue-500 w-full"
                   required
                 />
               </div>
 
-              <div>
-                <Label htmlFor="password">Password</Label>
+              {/* Password Field */}
+              <div className="space-y-2">
+                <Label htmlFor="password" className="text-base font-medium text-gray-700">Password</Label>
                 <div className="relative">
                   <Input
                     id="password"
@@ -145,29 +142,33 @@ export default function SignupPage() {
                     value={formData.password}
                     onChange={handleInputChange}
                     placeholder="Create a password"
+                    className="h-12 px-4 text-base border-gray-300 focus:border-blue-500 focus:ring-blue-500 w-full"
                     required
+                    style={{ paddingRight: '3rem' }}
                   />
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="sm"
-                    className="absolute right-0 top-0 h-full px-3 hover:bg-transparent"
-                    onClick={() => setShowPassword(!showPassword)}
-                  >
-                    {showPassword ? (
-                      <EyeOff className="h-4 w-4 text-gray-400" />
-                    ) : (
-                      <Eye className="h-4 w-4 text-gray-400" />
-                    )}
-                  </Button>
+                  <div className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="pointer-events-auto text-gray-400 hover:text-gray-600 focus:outline-none"
+                      tabIndex={-1}
+                    >
+                      {showPassword ? (
+                        <EyeOff className="h-5 w-5" />
+                      ) : (
+                        <Eye className="h-5 w-5" />
+                      )}
+                    </button>
+                  </div>
                 </div>
                 <p className="text-xs text-gray-500 mt-1">
-                  Password must be at least 6 characters long
+                  Must be at least 6 characters
                 </p>
               </div>
 
-              <div>
-                <Label htmlFor="confirmPassword">Confirm Password</Label>
+              {/* Confirm Password Field */}
+              <div className="space-y-2">
+                <Label htmlFor="confirmPassword" className="text-base font-medium text-gray-700">Confirm Password</Label>
                 <div className="relative">
                   <Input
                     id="confirmPassword"
@@ -176,71 +177,74 @@ export default function SignupPage() {
                     value={formData.confirmPassword}
                     onChange={handleInputChange}
                     placeholder="Confirm your password"
+                    className="h-12 px-4 text-base border-gray-300 focus:border-blue-500 focus:ring-blue-500 w-full"
                     required
+                    style={{ paddingRight: '3rem' }}
                   />
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="sm"
-                    className="absolute right-0 top-0 h-full px-3 hover:bg-transparent"
-                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  >
-                    {showConfirmPassword ? (
-                      <EyeOff className="h-4 w-4 text-gray-400" />
-                    ) : (
-                      <Eye className="h-4 w-4 text-gray-400" />
-                    )}
-                  </Button>
+                  <div className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+                    <button
+                      type="button"
+                      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                      className="pointer-events-auto text-gray-400 hover:text-gray-600 focus:outline-none"
+                      tabIndex={-1}
+                    >
+                      {showConfirmPassword ? (
+                        <EyeOff className="h-5 w-5" />
+                      ) : (
+                        <Eye className="h-5 w-5" />
+                      )}
+                    </button>
+                  </div>
                 </div>
               </div>
 
-              <div className="flex items-start space-x-2">
+              {/* Terms Checkbox */}
+              <div className="flex items-start space-x-3 pt-2">
                 <input
                   id="terms"
                   type="checkbox"
                   checked={acceptTerms}
                   onChange={(e) => setAcceptTerms(e.target.checked)}
-                  className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded mt-1"
+                  className="h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300 rounded mt-0.5"
                 />
-                <Label htmlFor="terms" className="text-sm leading-5">
+                <Label htmlFor="terms" className="text-sm text-gray-600 leading-5">
                   I agree to the{' '}
-                  <Link to="/terms" className="text-blue-600 hover:underline">
+                  <Link to="/terms" className="text-blue-600 hover:text-blue-700 hover:underline font-medium">
                     Terms of Service
                   </Link>{' '}
                   and{' '}
-                  <Link to="/privacy" className="text-blue-600 hover:underline">
+                  <Link to="/privacy" className="text-blue-600 hover:text-blue-700 hover:underline font-medium">
                     Privacy Policy
                   </Link>
                 </Label>
               </div>
 
-              <Button type="submit" className="w-full" disabled={isLoading}>
+              {/* Sign Up Button */}
+              <Button
+                type="submit"
+                className="w-full h-12 bg-blue-600 hover:bg-blue-700 text-white font-medium text-base shadow-md mt-2"
+                disabled={isLoading}
+              >
                 {isLoading ? 'Creating account...' : 'Create Account'}
               </Button>
             </form>
 
+            {/* Sign In Link */}
             <div className="mt-6 text-center">
-              <p className="text-sm text-gray-600">
+              <p className="text-base text-gray-600">
                 Already have an account?{' '}
-                <Link to="/login" className="text-blue-600 hover:underline font-medium">
+                <Link to="/login" className="text-blue-600 hover:text-blue-700 hover:underline font-medium">
                   Sign in
                 </Link>
               </p>
             </div>
+
+            {/* Benefits List */}
+
           </CardContent>
         </Card>
 
-        <div className="mt-8 text-center text-sm text-gray-500">
-          <p>
-            By creating an account, you'll be able to:
-          </p>
-          <ul className="mt-2 space-y-1">
-            <li>• Track your orders</li>
-            <li>• Save items to your wishlist</li>
-            <li>• Get exclusive deals and offers</li>
-            <li>• Faster checkout experience</li>
-          </ul>
-        </div>
+
       </div>
     </div>
   );

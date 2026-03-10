@@ -8,21 +8,16 @@ import {
   ShoppingCart,
   User,
   Menu,
-  X
+  X,
+  ChevronDown
 } from 'lucide-react';
 import { useAuth } from './context/AuthContext';
 import { useCart } from './context/CartContext';
 import BroadTechLogo from './BroadTechLogo';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from './ui/dropdown-menu';
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const { user, logout } = useAuth();
   const { getTotalItems } = useCart();
@@ -39,6 +34,7 @@ export default function Header() {
   const handleLogout = () => {
     logout();
     navigate('/');
+    setIsUserMenuOpen(false);
   };
 
   const categories = [
@@ -57,11 +53,10 @@ export default function Header() {
           <div className="flex justify-between items-center">
             <p className="text-sm">🔌 Free delivery on orders over KSH 5,000 • Premium Electronics</p>
             <div className="hidden md:flex items-center space-x-4 text-sm">
-
               {user?.role === 'admin' && (
                 <Link to="/admin" className="hover:underline font-medium">🔧 Admin Panel</Link>
               )}
-               <Link to="/help" className="hover:underline">Help</Link>
+              <Link to="/help" className="hover:underline">Help</Link>
             </div>
           </div>
         </div>
@@ -99,26 +94,52 @@ export default function Header() {
           <div className="flex items-center space-x-4">
             {/* User Account */}
             {user ? (
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="sm" className="flex items-center space-x-2">
-                    <User className="h-4 w-4" />
-                    <span className="hidden md:inline">{user.name}</span>
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
-                  <DropdownMenuItem asChild>
-                    <Link to="/profile">Profile</Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link to="/orders">My Orders</Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem onClick={handleLogout}>
-                    Logout
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
+              <div className="relative">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="flex items-center space-x-1 px-3 py-2 hover:bg-gray-100 rounded-md"
+                  onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
+                >
+                  <User className="h-4 w-4" />
+                  <span className="hidden md:inline">{user.name}</span>
+                  <ChevronDown className="h-4 w-4 text-gray-500" />
+                </Button>
+
+                {isUserMenuOpen && (
+                  <>
+                    {/* Backdrop to detect clicks outside */}
+                    <div
+                      className="fixed inset-0 z-40"
+                      onClick={() => setIsUserMenuOpen(false)}
+                    />
+
+                    {/* Dropdown Menu */}
+                    <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-xl z-50">
+                      <Link
+                        to="/profile"
+                        className="block px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 border-b border-gray-100"
+                        onClick={() => setIsUserMenuOpen(false)}
+                      >
+                        Profile
+                      </Link>
+                      <Link
+                        to="/orders"
+                        className="block px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 border-b border-gray-100"
+                        onClick={() => setIsUserMenuOpen(false)}
+                      >
+                        My Orders
+                      </Link>
+                      <button
+                        onClick={handleLogout}
+                        className="w-full text-left px-4 py-3 text-sm text-red-600 hover:bg-red-50"
+                      >
+                        Logout
+                      </button>
+                    </div>
+                  </>
+                )}
+              </div>
             ) : (
               <div className="flex items-center space-x-2">
                 <Link to="/login">
@@ -178,8 +199,8 @@ export default function Header() {
         </form>
       </div>
 
-      {/* Categories Navigation - Single instance */}
-      <div className=" hidden md:block border-t" style={{ backgroundColor: '#E8F4FF' }}>
+      {/* Categories Navigation */}
+      <div className="hidden md:block border-t" style={{ backgroundColor: '#E8F4FF' }}>
         <div className="w-full mx-auto px-4 py-2">
           <nav className="flex items-center space-x-6 overflow-x-auto">
             <Link

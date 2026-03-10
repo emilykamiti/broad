@@ -55,44 +55,34 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full">
-        {/* Logo and Header */}
-        <div className="text-center mb-6">
-          <Link to="/" className="inline-flex items-center justify-center space-x-2 mb-4">
-            <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center shrink-0">
-              <span className="text-white font-bold text-lg">D</span>
-            </div>
-            <span className="text-2xl font-bold text-gray-900">Dunamis</span>
-          </Link>
-          <h2 className="text-2xl font-bold text-gray-900">Welcome back</h2>
-          <p className="text-sm text-gray-600 mt-1">Sign in to your account to continue</p>
-        </div>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 py-8 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-md w-full mx-auto">
+
 
         {/* Login Card */}
-        <Card className="shadow-lg">
-          <CardHeader className="pb-4">
-            <CardTitle className="text-xl text-center">Sign In</CardTitle>
+        <Card className="shadow-xl border-0">
+          <CardHeader className="pb-2 pt-7">
+            <CardTitle className="text-2xl text-center font-semibold text-gray-800">Sign In</CardTitle>
           </CardHeader>
-          <CardContent className="p-6">
-            <form onSubmit={handleSubmit} className="space-y-5">
+          <CardContent className="p-7">
+            <form onSubmit={handleSubmit} className="space-y-6">
               {/* Email Field */}
-              <div className="space-y-1.5">
-                <Label htmlFor="email" className="text-sm font-medium">Email</Label>
+              <div className="space-y-2">
+                <Label htmlFor="email" className="text-base font-medium text-gray-700">Email</Label>
                 <Input
                   id="email"
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Enter your email"
-                  className="h-10"
+                  className="h-12 px-4 text-base border-gray-300 focus:border-blue-500 focus:ring-blue-500 w-full"
                   required
                 />
               </div>
 
-              {/* Password Field */}
-              <div className="space-y-1.5">
-                <Label htmlFor="password" className="text-sm font-medium">Password</Label>
+              {/* Password Field with Eye Icon on Far Right */}
+              <div className="space-y-2">
+                <Label htmlFor="password" className="text-base font-medium text-gray-700">Password</Label>
                 <div className="relative">
                   <Input
                     id="password"
@@ -100,22 +90,24 @@ export default function LoginPage() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Enter your password"
-                    className="h-10 pr-10"
+                    className="h-12 px-4 text-base border-gray-300 focus:border-blue-500 focus:ring-blue-500 w-full"
                     required
+                    style={{ paddingRight: '3rem' }}
                   />
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="sm"
-                    className="absolute right-1 top-1 h-8 w-8 p-0 hover:bg-transparent"
-                    onClick={() => setShowPassword(!showPassword)}
-                  >
-                    {showPassword ? (
-                      <EyeOff className="h-4 w-4 text-gray-400" />
-                    ) : (
-                      <Eye className="h-4 w-4 text-gray-400" />
-                    )}
-                  </Button>
+                  <div className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="pointer-events-auto text-gray-400 hover:text-gray-600 focus:outline-none"
+                      tabIndex={-1}
+                    >
+                      {showPassword ? (
+                        <EyeOff className="h-5 w-5" />
+                      ) : (
+                        <Eye className="h-5 w-5" />
+                      )}
+                    </button>
+                  </div>
                 </div>
               </div>
 
@@ -125,54 +117,34 @@ export default function LoginPage() {
                   <input
                     id="remember"
                     type="checkbox"
-                    className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                    className="h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
                   />
-                  <Label htmlFor="remember" className="ml-2 text-sm text-gray-600">
+                  <Label htmlFor="remember" className="ml-2 text-base text-gray-600 font-normal">
                     Remember me
                   </Label>
                 </div>
-                <Link to="/forgot-password" className="text-sm text-blue-600 hover:underline">
+                <Link to="/forgot-password" className="text-base text-blue-600 hover:text-blue-700 hover:underline">
                   Forgot password?
                 </Link>
               </div>
 
-              {/* Sign In Button */}
-              <Button type="submit" className="w-full h-10" disabled={isLoading}>
+              {/* Sign In Button - Plain Color */}
+              <Button
+                type="submit"
+                className="w-full h-12 bg-blue-600 hover:bg-blue-700 text-white font-medium text-base shadow-md"
+                disabled={isLoading}
+              >
                 {isLoading ? 'Signing in...' : 'Sign In'}
               </Button>
             </form>
 
-            {/* Demo Accounts Section */}
-            <div className="mt-6 pt-5 border-t border-gray-200">
-              <p className="text-xs text-gray-500 text-center mb-3">Demo Accounts:</p>
-              <div className="grid grid-cols-2 gap-3">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="h-9 text-xs"
-                  onClick={() => handleDemoLogin('user')}
-                >
-                  Demo User
-                </Button>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="h-9 text-xs"
-                  onClick={() => handleDemoLogin('admin')}
-                >
-                  Demo Admin
-                </Button>
-              </div>
-              <p className="text-xs text-gray-400 text-center mt-2">
-                Password: password
-              </p>
-            </div>
+
 
             {/* Sign Up Link */}
-            <div className="mt-5 text-center">
-              <p className="text-sm text-gray-600">
+            <div className="mt-6 text-center">
+              <p className="text-base text-gray-600">
                 Don't have an account?{' '}
-                <Link to="/signup" className="text-blue-600 hover:underline font-medium">
+                <Link to="/signup" className="text-blue-600 hover:text-blue-700 hover:underline font-medium">
                   Sign up
                 </Link>
               </p>
@@ -181,14 +153,14 @@ export default function LoginPage() {
         </Card>
 
         {/* Terms Footer */}
-        <div className="mt-6 text-center text-xs text-gray-500">
+        <div className="mt-7 text-center text-sm text-gray-500">
           <p>
             By signing in, you agree to our{' '}
-            <Link to="/terms" className="text-blue-600 hover:underline">
+            <Link to="/terms" className="text-blue-600 hover:text-blue-700 hover:underline">
               Terms of Service
             </Link>{' '}
             and{' '}
-            <Link to="/privacy" className="text-blue-600 hover:underline">
+            <Link to="/privacy" className="text-blue-600 hover:text-blue-700 hover:underline">
               Privacy Policy
             </Link>
           </p>
