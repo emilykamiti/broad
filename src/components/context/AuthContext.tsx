@@ -32,7 +32,7 @@ export function useAuth() {
 const mockUsers: User[] = [
   {
     id: '1',
-    email: 'admin@dunamis.com',
+    email: 'admin@broadtech.com',
     name: 'Admin User',
     role: 'admin',
     phone: '+254700000000',
@@ -54,7 +54,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     // Check for stored user session
-    const storedUser = localStorage.getItem('dunamis_user');
+    const storedUser = localStorage.getItem('broadtech_user');
     if (storedUser) {
       setUser(JSON.parse(storedUser));
     }
@@ -70,7 +70,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const foundUser = mockUsers.find(u => u.email === email);
     if (foundUser && password === 'password') {
       setUser(foundUser);
-      localStorage.setItem('dunamis_user', JSON.stringify(foundUser));
+      localStorage.setItem('broadtech_user', JSON.stringify(foundUser));
       setLoading(false);
       return true;
     }
@@ -101,21 +101,21 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     
     mockUsers.push(newUser);
     setUser(newUser);
-    localStorage.setItem('dunamis_user', JSON.stringify(newUser));
+    localStorage.setItem('broadtech_user', JSON.stringify(newUser));
     setLoading(false);
     return true;
   };
 
   const logout = () => {
     setUser(null);
-    localStorage.removeItem('dunamis_user');
+    localStorage.removeItem('broadtech_user');
   };
 
   const updateProfile = (data: Partial<User>) => {
     if (user) {
       const updatedUser = { ...user, ...data };
       setUser(updatedUser);
-      localStorage.setItem('dunamis_user', JSON.stringify(updatedUser));
+      localStorage.setItem('broadtech_user', JSON.stringify(updatedUser));
     }
   };
 
